@@ -26,50 +26,50 @@
     +round-corners("5px", "10px", "20px", "30px")
 
 //////////
-// You can also use the single-corner mixins to override the value for just one corner,
-// in order to be less verbose.
+// You can also use the single-corner and single-side mixins on their own,
+// or as an override in order to be less verbose.
 
-// EXAMPLE
+// EXAMPLES
 // all corners 5px, except the bottom-right, set to 20px
   div.five
     +round-corners("5px")
     +round-corner-bottom-right("20px")
 
+// corners on the left set to 10px
+  div.six
+    +round-corners-horizontal("left", "10px")
+
+// corners on the top set to 10px
+  div.six
+    +round-corners-vertical("top", "10px")
+
 //////////
 // THE MIXINS
-// round top-left corner
-=round-corner-top-left(!rad1)
-  :-moz-border-radius-topleft= !rad1
-  :-webkit-top-left-radius= !rad1
-  :-border-top-left-radius= !rad1
+// round one corner at a time
+=round-corner(!vert, !hor, !rad)
+  -moz-border-radius-#{!vert}#{!hor}= !rad
+  -webkit-#{!vert}-#{!hor}-radius= !rad
+  -border-#{!vert}-#{!hor}-radius= !rad
 
-// round top-right corner
-=round-corner-top-right(!rad2)
-  :-moz-border-radius-topright= !rad2
-  :-webkit-top-right-radius= !rad2
-  :-border-top-right-radius= !rad2
+// round corners on left or right
+=round-corners-horizontal(!hor, !rad1, !rad2 = !rad1)
+  +round-corner("top", !hor, !rad1)
+  +round-corner("bottom", !hor, !rad2)
 
-// round bottom-right corner
-=round-corner-bottom-right(!rad3)
-  :-moz-border-radius-bottomright= !rad3
-  :-webkit-bottom-right-radius= !rad3
-  :-border-bottom-right-radius= !rad3
-
-// round bottom-left corner
-=round-corner-bottom-left(!rad4)
-  :-moz-border-radius-bottomleft= !rad4
-  :-webkit-bottom-left-radius= !rad4
-  :-border-bottom-left-radius= !rad4
+// round corners on top or bottom
+=round-corners-vertical(!vert, !rad1, !rad2 = !rad1)
+  +round-corner(!vert, "left", !rad1)
+  +round-corner(!vert, "right", !rad2)
 
 // round some combination of corners
 =round-corners(!rad1, !rad2 = false, !rad3 = false, !rad4 = false)
-  :-moz-border-radius= !rad1
-  :-webkit-border-radius= !rad1
-  :-border-radius= !rad1
+  -moz-border-radius= !rad1
+  -webkit-border-radius= !rad1
+  -border-radius= !rad1
   @if !rad2 != false
-    +round-corner-top-right(!rad2)
-    +round-corner-bottom-left(!rad2)
+    +round-corner("top", "right", !rad2)
+    +round-corner("bottom", "left", !rad2)
   @if !rad3 != false
-    +round-corner-bottom-right(!rad3)
+    +round-corner("bottom", "right", !rad3)
   @if !rad4 != false
-    +round-corner-bottom-left(!rad4)
+    +round-corner("bottom", "left", !rad4)
