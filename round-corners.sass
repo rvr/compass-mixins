@@ -1,3 +1,4 @@
+//////////
 // This mixin will allow you to apply round corners to an element by using one radius value for all corners,
 // alternating values for alternating corners, or a different value for each corner.
 
@@ -24,27 +25,43 @@
   div.four
     +round-corners("5px", "10px", "20px", "30px")
 
+//////////
+// You can also use the single-corner mixins to override the value for just one corner,
+// in order to be less verbose.
+
+// EXAMPLE
+// all corners 5px, except the bottom-right, set to 20px
+  div.five
+    +round-corners("5px")
+    +round-corner-bottom-right("20px")
+
+
 // the mixins
+// round top-left corner
 =round-corner-top-left(!rad1)
   :-moz-border-radius-topleft= !rad1
   :-webkit-top-left-radius= !rad1
   :-border-top-left-radius= !rad1
-  
+
+// round top-right corner
 =round-corner-top-right(!rad2)
   :-moz-border-radius-topright= !rad2
   :-webkit-top-right-radius= !rad2
   :-border-top-right-radius= !rad2
-  
+
+// round bottom-right corner
 =round-corner-bottom-right(!rad3)
   :-moz-border-radius-bottomright= !rad3
   :-webkit-bottom-right-radius= !rad3
   :-border-bottom-right-radius= !rad3
-  
+
+// round bottom-left corner
 =round-corner-bottom-left(!rad4)
   :-moz-border-radius-bottomleft= !rad4
   :-webkit-bottom-left-radius= !rad4
   :-border-bottom-left-radius= !rad4
-  
+
+// round some combination of corners
 =round-corners(!rad1, !rad2 = false, !rad3 = false, !rad4 = false)
   :-moz-border-radius= !rad1
   :-webkit-border-radius= !rad1
