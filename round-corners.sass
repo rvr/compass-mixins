@@ -1,0 +1,54 @@
+// this mixin will allow you to apply round corners to an element by using one radius value for all corners, alternating values for alternating corners, or a different value for each corner.
+// it works like other values, such as margin and padding (all; top/bottom, right/left; top, bottom, right, left)
+// the order is: all; top-left/bottom-right, top-right/bottom-left; top-left, top-right, bottom-right, bottom-left
+// so pass it one value and all corners will have the same radius, two values will apply to alternate corners, etc.
+
+// EXAMPLES
+// all corners 5px
+  div.one
+    +round-corners("5px")
+
+// top-left and bottom-right 5px, top-right and bottom-left 10px
+  div.two
+    +round-corners("5px", "10px")
+
+// top-left 5px, top-right and bottom-left 10px, bottom-right 20px
+  div.three
+    +round-corners("5px", "10px", "20px")
+
+// top-left 5px, top-right 10px, bottom-right 20px, bottom-left 30px
+  div.four
+    +round-corners("5px", "10px", "20px", "30px")
+
+// the mixins
+=round-corner-top-left(!rad1)
+  :-moz-border-radius-topleft= !rad1
+  :-webkit-top-left-radius= !rad1
+  :-border-top-left-radius= !rad1
+  
+=round-corner-top-right(!rad2)
+  :-moz-border-radius-topright= !rad2
+  :-webkit-top-right-radius= !rad2
+  :-border-top-right-radius= !rad2
+  
+=round-corner-bottom-right(!rad3)
+  :-moz-border-radius-bottomright= !rad3
+  :-webkit-bottom-right-radius= !rad3
+  :-border-bottom-right-radius= !rad3
+  
+=round-corner-bottom-left(!rad4)
+  :-moz-border-radius-bottomleft= !rad4
+  :-webkit-bottom-left-radius= !rad4
+  :-border-bottom-left-radius= !rad4
+  
+=round-corners(!rad1, !rad2 = false, !rad3 = false, !rad4 = false)
+  :-moz-border-radius= !rad1
+  :-webkit-border-radius= !rad1
+  :-border-radius= !rad1
+  @if !rad2 != false
+    +round-corner-top-right(!rad2)
+    +round-corner-bottom-left(!rad2)
+  @if !rad3 != false
+    +round-corner-bottom-right(!rad3)
+  @if !rad4 != false
+    +round-corner-bottom-left(!rad4)
