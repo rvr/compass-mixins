@@ -1,0 +1,5 @@
+These are my Compass/SASS mixins that could be useful to others.
+
+To use one, simply put it in your sass file and start tasting those delicious round corners. I'll probably set these up as partials so you can just clone this repo and include them at your leisure.
+
+If you like what you find, or have an idea for how to improve it, let me know.
